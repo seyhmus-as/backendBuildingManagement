@@ -12,6 +12,6 @@ namespace Business.Abstract
 		IResult Delete(int id);
 		IResult Update(Card card);
 		IDataResult<List<Card>> GetAll();
-		IDataResult<List<Card>> GetById(int cardId);
+		IDataResult<Card> GetById(int cardId);
 	}
 }

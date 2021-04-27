@@ -9,36 +9,36 @@ using System.Text;
 
 namespace Business.Concrete
 {
-	public class FlatManager : IPriceService
+	public class RenterManager : IRenterService
 	{
-		IPriceDal _priceDal;
+		IRenterDal _renterDal;
 
-		public FlatManager(IPriceDal pricedal)
+		public RenterManager(IRenterDal renterdal)
 		{
-			_priceDal = pricedal;
+			_renterDal = renterdal;
 		}
-		public IResult Add(Price price)
+		public IResult Add(Renter price)
 		{
-			_priceDal.Add(price);
+			_renterDal.Add(price);
 			return new SuccessResult(Messages.PriceAdded);
 		}
-		public IResult Delete(int minuteBegin)
+		public IResult Delete(int renterId)
 		{
-			_priceDal.Delete(_priceDal.Get(p=>p.MinuteBegin==minuteBegin));
+			_renterDal.Delete(_renterDal.Get(p => p.RenterId == renterId));
 			return new SuccessResult(Messages.PriceDeleted);
 		}
-		public IResult Update(Price price)
+		public IResult Update(Renter renter)
 		{
-			_priceDal.Update(price);
+			_renterDal.Update(renter);
 			return new SuccessResult(Messages.PriceUpdated);
 		}
-		public IDataResult<List<Price>> GetAll()
+		public IDataResult<List<Renter>> GetAll()
 		{
-			return new SuccessDataResult<List<Price>>(_priceDal.GetAll(), Messages.PriceListed);
+			return new SuccessDataResult<List<Renter>>(_renterDal.GetAll(), Messages.RenterListed);
 		}
-		public IDataResult<Price> GetById(int MinuteBegin)
+		public IDataResult<Renter> GetById(int renterId)
 		{
-			return new SuccessDataResult<Price>(_priceDal.Get(p => p.MinuteBegin == MinuteBegin));
+			return new SuccessDataResult<Renter>(_renterDal.Get(p => p.RenterId == renterId));
 		}
 
 	}

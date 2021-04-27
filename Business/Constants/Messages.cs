@@ -33,5 +33,8 @@ namespace Business.Constants
 		public static string CarTakeOut= "CarTakeOut";
 		public static string PriceCalculated = "priceCalculated";
 		public static string AbonnementPriceCalculated= "AbonnementPriceCalculated";
+		public static string cardHistoryDeleted;
+		public static string FlatDeleted;
+		public static string RenterListed;
 	}
 }

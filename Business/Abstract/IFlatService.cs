@@ -13,7 +13,7 @@ namespace Business.Abstract
         IResult Update(Flat flat);
         IResult Delete(int flatId);
         IDataResult<List<Flat>> GetAll();
-        IDataResult<Flat> GetById(int carId);
+        IDataResult<Flat> GetById(int flatId);
         IDataResult<List<FlatDetailDto>> GetFlatDetails();
         
     }

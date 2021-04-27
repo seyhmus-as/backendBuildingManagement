@@ -3,43 +3,50 @@ using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Business.Concrete
 {
-	public class FlatManager : IPriceService
+	public class FlatManager : IFlatService
 	{
-		IPriceDal _priceDal;
+		IFlatDal _flatDal;
 
-		public FlatManager(IPriceDal pricedal)
+		public FlatManager(IFlatDal flatdal)
 		{
-			_priceDal = pricedal;
+			_flatDal = flatdal;
 		}
-		public IResult Add(Price price)
+		public IResult Add(Flat flat)
 		{
-			_priceDal.Add(price);
+			_flatDal.Add(flat);
 			return new SuccessResult(Messages.PriceAdded);
 		}
-		public IResult Delete(int minuteBegin)
+		public IResult Delete(int flatId)
 		{
-			_priceDal.Delete(_priceDal.Get(p=>p.MinuteBegin==minuteBegin));
-			return new SuccessResult(Messages.PriceDeleted);
+			_flatDal.Delete(_flatDal.Get(p => p.FlatId == flatId));
+			return new SuccessResult(Messages.FlatDeleted);
 		}
-		public IResult Update(Price price)
+		public IResult Update(Flat flat)
 		{
-			_priceDal.Update(price);
+			_flatDal.Update(flat);
 			return new SuccessResult(Messages.PriceUpdated);
 		}
-		public IDataResult<List<Price>> GetAll()
+		public IDataResult<List<Flat>> GetAll()
 		{
-			return new SuccessDataResult<List<Price>>(_priceDal.GetAll(), Messages.PriceListed);
+			return new SuccessDataResult<List<Flat>>(_flatDal.GetAll(), Messages.PriceListed);
 		}
-		public IDataResult<Price> GetById(int MinuteBegin)
+		public IDataResult<Flat> GetById(int flatId)
 		{
-			return new SuccessDataResult<Price>(_priceDal.Get(p => p.MinuteBegin == MinuteBegin));
+			return new SuccessDataResult<Flat>(_flatDal.Get(p => p.FlatId == flatId));
 		}
+
+		public IDataResult<List<FlatDetailDto>> GetFlatDetails()
+		{
+			return new SuccessDataResult<List<FlatDetailDto>>(_flatDal.GetFlatDetails());
+		}
+
 
 	}
 }

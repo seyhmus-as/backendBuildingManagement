@@ -5,15 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
-using DataAccess.Concrete.EntityFramework.Context;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfUserDal : EfEntityRepositoryBase<User, CarParkContext>, IUserDal
+    public class EfUserDal : EfEntityRepositoryBase<User, BuildingManagementContext>, IUserDal
     {
         public List<OperationClaim> GetClaims(User user)
         {
-            using (var context = new CarParkContext())
+            using (var context = new BuildingManagementContext())
             {
                 var result = from operationClaim in context.OperationClaims
                              join userOperationClaim in context.UserOperationClaims

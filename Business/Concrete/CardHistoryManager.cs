@@ -9,44 +9,36 @@ using System.Text;
 
 namespace Business.Concrete
 {
-	public class CardHistoryManager : IRenterService
+	public class CardHistoryManager : ICardHistoryService
 	{
-		IParkHistoryDal _parkHistoryDal;
+		ICardHistoryDal _cardHistoryDal;
 
-		public CardHistoryManager(IParkHistoryDal parkHistorydal)
+		public CardHistoryManager(ICardHistoryDal parkHistorydal)
 		{
-			_parkHistoryDal = parkHistorydal;
+			_cardHistoryDal = parkHistorydal;
 		}
-		public IResult Add(ParkHistory parkHistorydal)
+		public IResult Add(CardHistory cardHistorydal)
 		{
-			_parkHistoryDal.Add(parkHistorydal);
+			_cardHistoryDal.Add(cardHistorydal);
 			return new SuccessResult(Messages.ParkHistoryAdded);
 		}
 		public IResult Delete(int id)
 		{
-			_parkHistoryDal.Delete(_parkHistoryDal.Get(p => p.Id == id));
-			return new SuccessResult(Messages.parkHistoryDeleted);
+			_cardHistoryDal.Delete(_cardHistoryDal.Get(p => p.Id == id));
+			return new SuccessResult(Messages.cardHistoryDeleted);
 		}
-		public IResult Update(ParkHistory parkHistory)
+		public IResult Update(CardHistory cardHistory)
 		{
-			_parkHistoryDal.Update(parkHistory);
+			_cardHistoryDal.Update(cardHistory);
 			return new SuccessResult(Messages.parkHistoryUpdate);
 		}
-		public IDataResult<List<ParkHistory>> GetAll()
+		public IDataResult<List<CardHistory>> GetAll()
 		{
-			return new SuccessDataResult<List<ParkHistory>>(_parkHistoryDal.GetAll(), Messages.ParkHistoryListed);
+			return new SuccessDataResult<List<CardHistory>>(_cardHistoryDal.GetAll(), Messages.ParkHistoryListed);
 		}
-		public IDataResult<List<ParkHistory>> GetById(int carId)
+		public IDataResult<List<CardHistory>> GetById(int carId)
 		{
-			return new SuccessDataResult<List<ParkHistory>>(_parkHistoryDal.GetAll(p => p.CarId == carId));
-		}
-		public IDataResult<List<ParkHistory>> GetProcessesBetweenInterval(int secondBegin, int secondFinal)
-		{
-			var processesBetweenInterval = _parkHistoryDal.GetAll(p =>
-					(p.ExitTime.Value.Second > secondBegin && p.ExitTime.Value.Second < secondFinal) ||
-					(p.EntryTime.Value.Second > secondBegin && p.EntryTime.Value.Second < secondFinal)
-				);
-			return new SuccessDataResult<List<ParkHistory>>(processesBetweenInterval);
+			return new SuccessDataResult<List<CardHistory>>(_cardHistoryDal.GetAll(p => p.CardId == carId));
 		}
 	}
 }

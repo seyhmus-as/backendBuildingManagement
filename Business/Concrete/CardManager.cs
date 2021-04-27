@@ -11,42 +11,37 @@ using System.Text;
 
 namespace Business.Concrete
 {
-	public class CardManager : IApartmentService
+	public class CardManager : ICardService
 	{
-		ICustomerDal _customerDal;
-		public CardManager(ICustomerDal customerDal)
+		ICardDal _cardDal;
+		public CardManager(ICardDal cardDal)
 		{
-			_customerDal = customerDal;
+			_cardDal = cardDal;
 		}	
-		[SecuredOperation("admin")]
-		public IResult Add(Customer customer)
+		public IResult Add(Card card)
 		{
-			_customerDal.Add(customer);
+			_cardDal.Add(card);
 			return new SuccessResult(Messages.CustomerAdded);
 		}
 		public IResult Delete(int id)
 		{
-			_customerDal.Delete(_customerDal.Get(p => p.Id == id));
+			_cardDal.Delete(_cardDal.Get(p => p.CardId == id));
 			return new SuccessResult(Messages.CustomerDeleted);
 		}
-		public IResult Update(Customer customer)
+		public IResult Update(Card card)
 		{
 			/*var updatedL = _customerDal.Get(p => p.Id == customer.Id);
  			_customerDal.Update(updatedL);*/
-			_customerDal.Update(customer);
+			_cardDal.Update(card);
 			return new SuccessResult(Messages.CustomerUpdate);
 		}
-		public IDataResult<List<Customer>> GetAll()
+		public IDataResult<List<Card>> GetAll()
 		{
-			return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(), Messages.CustomersListed);
+			return new SuccessDataResult<List<Card>>(_cardDal.GetAll(), Messages.CustomersListed);
 		}
-		public IDataResult<Customer> GetById(int customerId)
+		public IDataResult<Card> GetById(int cardId)
 		{
-			return new SuccessDataResult<Customer>(_customerDal.Get(p => p.Id == customerId));
-		}
-		public IDataResult<List<CustomerDetailDto>> GetCustomerDetails()
-		{
-			return new SuccessDataResult<List<CustomerDetailDto>>(_customerDal.GetCustomerDetails());
+			return new SuccessDataResult<Card>(_cardDal.Get(p => p.CardId == cardId));
 		}
 	}
 }

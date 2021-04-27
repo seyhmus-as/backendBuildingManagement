@@ -13,17 +13,20 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfFlatDal : EfEntityRepositoryBase<Flat, BuildingManagementContext>, IFlatDal
     {
-        public List<FlatDetailDto> GetProductDetails()
+        public List<FlatDetailDto> GetFlatDetails()
         {
             using (BuildingManagementContext context = new BuildingManagementContext())
             {
-                var result = from p in context.Products
-                             join c in context.Categories
-                             on p.CategoryId equals c.CategoryId
-                             select new FlatDetailDto 
+                var result = from p in context.Flats
+                             join c in context.Apartments
+                             on p.ApartmentId equals c.ApartmentId
+                             select new FlatDetailDto
                              {
-                                 ProductId = p.ProductId, ProductName = p.ProductName, 
-                                 CategoryName =c.CategoryName, UnitsInStock = p.UnitsInStock 
+                                 ApartmentName=c.ApartmentName,
+                                 ApartmentId=c.ApartmentId,
+                                 FlatId=p.FlatId,
+                                 PriceOfRent=p.PriceOfRent,
+                                 Renter=p.Renter
                              };
                 return result.ToList();
             }

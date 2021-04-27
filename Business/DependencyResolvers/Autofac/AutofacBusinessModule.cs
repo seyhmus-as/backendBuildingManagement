@@ -19,17 +19,20 @@ namespace Business.DependencyResolvers.Autofac
         protected override void Load(ContainerBuilder builder)
         {
 
-            builder.RegisterType<ApartmentManager>().As<IFlatService>().SingleInstance();
-            builder.RegisterType<EfCarDal>().As<ICarDal>().SingleInstance();
+            builder.RegisterType<ApartmentManager>().As<IApartmentService>().SingleInstance();
+            builder.RegisterType<EfApartmentDal>().As<IApartmentDal>().SingleInstance();
 
-            builder.RegisterType<CardManager>().As<IApartmentService>().SingleInstance();
-            builder.RegisterType<EfCustomerDal>().As<ICustomerDal>().SingleInstance();
+            builder.RegisterType<CardManager>().As<ICardService>().SingleInstance();
+            builder.RegisterType<EfCardDal>().As<ICardDal>().SingleInstance();
 
-            builder.RegisterType<FlatManager>().As<IPriceService>().SingleInstance();
-            builder.RegisterType<EfPriceDal>().As<IPriceDal>().SingleInstance();
+            builder.RegisterType<FlatManager>().As<IFlatService>().SingleInstance();
+            builder.RegisterType<EfFlatDal>().As<IFlatDal>().SingleInstance();
 
-            builder.RegisterType<CardHistoryManager>().As<IRenterService>().SingleInstance();
-            builder.RegisterType<EfParkHistoryDal>().As<IParkHistoryDal>().SingleInstance();
+            builder.RegisterType<RenterManager>().As<IRenterService>().SingleInstance();
+            builder.RegisterType<EfRenterDal>().As<IRenterDal>().SingleInstance();
+
+            builder.RegisterType<CardHistoryManager>().As<ICardHistoryService>().SingleInstance();
+            builder.RegisterType<EfCardHistoryDal>().As<ICardHistoryDal>().SingleInstance();
 
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();
