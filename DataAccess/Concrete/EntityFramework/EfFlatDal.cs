@@ -26,7 +26,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  ApartmentId=c.ApartmentId,
                                  FlatId=p.FlatId,
                                  PriceOfRent=p.PriceOfRent,
-                                 Renter=p.Renter
+                                 Renter=p.RenterId
                              };
                 return result.ToList();
             }

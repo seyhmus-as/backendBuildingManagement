@@ -12,6 +12,6 @@ namespace Entities.Concrete
 		public int FlatId { get; set; }
 		public int ApartmentId { get; set; }
 		public int PriceOfRent { get; set; }
-		public int Renter { get; set; }
+		public int RenterId { get; set; }
 	}
 }
