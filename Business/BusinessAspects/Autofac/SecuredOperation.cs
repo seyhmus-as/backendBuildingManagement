@@ -33,7 +33,7 @@ namespace Business.BusinessAspects.Autofac
                     return;
                 }
             }
-            return; //sil bunu
+            //return; //sil bunu
             throw new Exception(Messages.AuthorizationDenied);
         }
     }

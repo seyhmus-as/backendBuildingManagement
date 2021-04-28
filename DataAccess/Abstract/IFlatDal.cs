@@ -9,7 +9,6 @@ namespace DataAccess.Abstract
 {
     public interface IFlatDal:IEntityRepository<Flat>
     {
-
         List<FlatDetailDto> GetFlatDetails();
     }
 }

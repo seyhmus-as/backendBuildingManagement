@@ -13,34 +13,41 @@ using System.Text;
 
 namespace Business.Concrete
 {
+
 	public class ApartmentManager : IApartmentService
 	{
-		//[SecuredOperation("personnel,admin")]
-		//[CacheAspect]
 		IApartmentDal _apartmentDal;
 		public ApartmentManager(IApartmentDal apartmentDal)
 		{
 			_apartmentDal = apartmentDal;
 		}
+		[SecuredOperation("admin")]
+		[CacheRemoveAspect("IApartmentService.Get")]
 		public IResult Add(Apartment apartment)
 		{
 			_apartmentDal.Add(apartment);
 			return new SuccessResult(Messages.CarAdded);
 		}
-		public IResult Delete(int carId)
+		[SecuredOperation("admin")]
+		public IResult Delete(int cardId)
 		{
-			_apartmentDal.Delete(_apartmentDal.Get(p => p.ApartmentId == carId));
+			_apartmentDal.Delete(_apartmentDal.Get(p => p.ApartmentId == cardId));
 			return new SuccessResult(Messages.CarDeleted);
 		}
+		[SecuredOperation("admin")]
+		[CacheRemoveAspect("IApartmentService.Get")]
 		public IResult Update(Apartment apartment)
 		{
 			_apartmentDal.Update(apartment);
 			return new SuccessResult(Messages.CarUpdate);
 		}
+		[SecuredOperation("admin")]
+		[CacheAspect]
 		public IDataResult<List<Apartment>> GetAll()
 		{
 			return new SuccessDataResult<List<Apartment>>(_apartmentDal.GetAll(), Messages.CarsListed);
 		}
+		[SecuredOperation("admin")]
 		public IDataResult<Apartment> GetById(int apartmentId)
 		{
 			return new SuccessDataResult<Apartment>(_apartmentDal.Get(p => p.ApartmentId == apartmentId));

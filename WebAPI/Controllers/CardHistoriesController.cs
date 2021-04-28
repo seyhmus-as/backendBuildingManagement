@@ -60,9 +60,39 @@ namespace WebAPI.Controllers
 			return BadRequest(result);
 		}
 		[HttpGet("getbyid")]
-		public IActionResult GetById(int carId)
+		public IActionResult GetById(int cardId)
 		{
-			var result = _cardHistoryService.GetById(carId);
+			var result = _cardHistoryService.GetById(cardId);
+			if (result.Success)
+			{
+				return Ok(result);
+			}
+			return BadRequest(result);
+		}
+		[HttpGet("getmonthmoneybyid")]
+		public IActionResult GetMonthIncomeById(int flatId, int secondBegin, int secondFinal, bool isIncome)
+		{
+			var result = _cardHistoryService.GetMonthMoneyById(flatId, secondBegin, secondFinal, isIncome);
+			if (result.Success)
+			{
+				return Ok(result);
+			}
+			return BadRequest(result);
+		}
+		[HttpGet("getmonthmoneybyidtotal")]
+		public IActionResult GetMonthIncomeByIdtotal(int flatId, int secondBegin, int secondFinal, bool isIncome)
+		{
+			var result = _cardHistoryService.GetMonthMoneyTotalById(flatId, secondBegin, secondFinal, isIncome);
+			if (result.Success)
+			{
+				return Ok(result);
+			}
+			return BadRequest(result);
+		}
+		[HttpGet("getmonthmoney")]
+		public IActionResult GetMonthIncome(int secondBegin, int secondFinal, bool isIncome)
+		{
+			var result = _cardHistoryService.GetMonthMoney(secondBegin, secondFinal,isIncome);
 			if (result.Success)
 			{
 				return Ok(result);

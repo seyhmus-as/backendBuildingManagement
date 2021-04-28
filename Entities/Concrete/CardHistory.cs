@@ -12,7 +12,7 @@ namespace Entities.Concrete
 		public int Id { get; set; }
 		public int CardId { get; set; }
 		public int FlatId { get; set; }
-		public DateTime Date { get; set; }
+		public DateTime? Date { get; set; }
 		public int Price{ get; set; }
 	}
 }

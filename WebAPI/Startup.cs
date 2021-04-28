@@ -38,6 +38,11 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+
+
+
+
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -79,7 +84,6 @@ namespace WebAPI
 
             app.UseOpenApi();
             app.UseSwaggerUi3();
-
 
             app.UseEndpoints(endpoints =>
             {
