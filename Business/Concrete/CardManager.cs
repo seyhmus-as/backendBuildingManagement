@@ -24,33 +24,31 @@ namespace Business.Concrete
 		public IResult Add(Card card)
 		{
 			_cardDal.Add(card);
-			return new SuccessResult(Messages.CustomerAdded);
+			return new SuccessResult(Messages.CardAdded);
 		}
 		[SecuredOperation("admin")]
 		public IResult Delete(int id)
 		{
 			_cardDal.Delete(_cardDal.Get(p => p.CardId == id));
-			return new SuccessResult(Messages.CustomerDeleted);
+			return new SuccessResult(Messages.CardDeleted);
 		}
 		[SecuredOperation("admin")]
 		[CacheRemoveAspect("ICardService.Get")]
 		public IResult Update(Card card)
 		{
-			/*var updatedL = _customerDal.Get(p => p.Id == customer.Id);
- 			_customerDal.Update(updatedL);*/
 			_cardDal.Update(card);
-			return new SuccessResult(Messages.CustomerUpdate);
+			return new SuccessResult(Messages.CardUpdated);
 		}
 		[SecuredOperation("admin")]
 		[CacheAspect]
 		public IDataResult<List<Card>> GetAll()
 		{
-			return new SuccessDataResult<List<Card>>(_cardDal.GetAll(), Messages.CustomersListed);
+			return new SuccessDataResult<List<Card>>(_cardDal.GetAll(), Messages.CardsListed);
 		}
 		[SecuredOperation("admin")]
 		public IDataResult<Card> GetById(int cardId)
 		{
-			return new SuccessDataResult<Card>(_cardDal.Get(p => p.CardId == cardId));
+			return new SuccessDataResult<Card>(_cardDal.Get(p => p.CardId == cardId), Messages.CardViewed);
 		}
 	}
 }

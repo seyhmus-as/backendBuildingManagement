@@ -72,7 +72,7 @@ namespace WebAPI.Controllers
 		[HttpGet("getmonthmoneybyid")]
 		public IActionResult GetMonthIncomeById(int flatId, int secondBegin, int secondFinal, bool isIncome)
 		{
-			var result = _cardHistoryService.GetMonthMoneyById(flatId, secondBegin, secondFinal, isIncome);
+			var result = _cardHistoryService.GetMonthlyMoneyById(flatId, secondBegin, secondFinal, isIncome);
 			if (result.Success)
 			{
 				return Ok(result);
@@ -82,7 +82,7 @@ namespace WebAPI.Controllers
 		[HttpGet("getmonthmoneybyidtotal")]
 		public IActionResult GetMonthIncomeByIdtotal(int flatId, int secondBegin, int secondFinal, bool isIncome)
 		{
-			var result = _cardHistoryService.GetMonthMoneyTotalById(flatId, secondBegin, secondFinal, isIncome);
+			var result = _cardHistoryService.GetMonthlyMoneyTotalById(flatId, secondBegin, secondFinal, isIncome);
 			if (result.Success)
 			{
 				return Ok(result);
@@ -92,7 +92,7 @@ namespace WebAPI.Controllers
 		[HttpGet("getmonthmoney")]
 		public IActionResult GetMonthIncome(int secondBegin, int secondFinal, bool isIncome)
 		{
-			var result = _cardHistoryService.GetMonthMoney(secondBegin, secondFinal,isIncome);
+			var result = _cardHistoryService.GetMonthlyMoney(secondBegin, secondFinal,isIncome);
 			if (result.Success)
 			{
 				return Ok(result);

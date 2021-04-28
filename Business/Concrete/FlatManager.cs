@@ -24,7 +24,7 @@ namespace Business.Concrete
 		public IResult Add(Flat flat)
 		{
 			_flatDal.Add(flat);
-			return new SuccessResult(Messages.PriceAdded);
+			return new SuccessResult(Messages.FlatAdded);
 		}
 		[SecuredOperation("admin")]
 		public IResult Delete(int flatId)
@@ -37,18 +37,18 @@ namespace Business.Concrete
 		public IResult Update(Flat flat)
 		{
 			_flatDal.Update(flat);
-			return new SuccessResult(Messages.PriceUpdated);
+			return new SuccessResult(Messages.FlatUpdated);
 		}
 		[CacheAspect]
 		[SecuredOperation("admin")]
 		public IDataResult<List<Flat>> GetAll()
 		{
-			return new SuccessDataResult<List<Flat>>(_flatDal.GetAll(), Messages.PriceListed);
+			return new SuccessDataResult<List<Flat>>(_flatDal.GetAll(), Messages.FlatsListed);
 		}
 		[SecuredOperation("admin")]
 		public IDataResult<Flat> GetById(int flatId)
 		{
-			return new SuccessDataResult<Flat>(_flatDal.Get(p => p.FlatId == flatId));
+			return new SuccessDataResult<Flat>(_flatDal.Get(p => p.FlatId == flatId), Messages.FlatViewedById);
 		}
 		[CacheAspect]
 		[SecuredOperation("admin")]

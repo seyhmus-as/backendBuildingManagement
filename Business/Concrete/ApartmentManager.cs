@@ -26,31 +26,31 @@ namespace Business.Concrete
 		public IResult Add(Apartment apartment)
 		{
 			_apartmentDal.Add(apartment);
-			return new SuccessResult(Messages.CarAdded);
+			return new SuccessResult(Messages.ApartmentAdded);
 		}
 		[SecuredOperation("admin")]
 		public IResult Delete(int cardId)
 		{
 			_apartmentDal.Delete(_apartmentDal.Get(p => p.ApartmentId == cardId));
-			return new SuccessResult(Messages.CarDeleted);
+			return new SuccessResult(Messages.ApartmentDeleted);
 		}
 		[SecuredOperation("admin")]
 		[CacheRemoveAspect("IApartmentService.Get")]
 		public IResult Update(Apartment apartment)
 		{
 			_apartmentDal.Update(apartment);
-			return new SuccessResult(Messages.CarUpdate);
+			return new SuccessResult(Messages.ApartmentUpdate);
 		}
 		[SecuredOperation("admin")]
 		[CacheAspect]
 		public IDataResult<List<Apartment>> GetAll()
 		{
-			return new SuccessDataResult<List<Apartment>>(_apartmentDal.GetAll(), Messages.CarsListed);
+			return new SuccessDataResult<List<Apartment>>(_apartmentDal.GetAll(), Messages.ApartmentsListed);
 		}
 		[SecuredOperation("admin")]
 		public IDataResult<Apartment> GetById(int apartmentId)
 		{
-			return new SuccessDataResult<Apartment>(_apartmentDal.Get(p => p.ApartmentId == apartmentId));
+			return new SuccessDataResult<Apartment>(_apartmentDal.Get(p => p.ApartmentId == apartmentId),Messages.ApartmentViewedById);
 		}
 	}
 }
