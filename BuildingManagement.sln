@@ -7,14 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entiti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{A987CF46-A085-4A09-9612-FEF6F16440A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{4096B7F6-0135-401C-AB0A-2FC4A9285A9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{4096B7F6-0135-401C-AB0A-2FC4A9285A9E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A987CF46-A085-4A09-9612-FEF6F16440A1} = {A987CF46-A085-4A09-9612-FEF6F16440A1}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{11B6F0D8-1E6B-485B-91FF-124135C440A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Business.csproj", "{11B6F0D8-1E6B-485B-91FF-124135C440A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{E0F1F09A-D356-4582-8056-146BF1B11075}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{E0F1F09A-D356-4582-8056-146BF1B11075}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

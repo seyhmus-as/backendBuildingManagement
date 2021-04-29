@@ -3,6 +3,7 @@ using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Performance;
+using Core.Aspects.Autofac.Transaction;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -44,15 +45,10 @@ namespace Business.Concrete
 		}
 		[SecuredOperation("admin")]
 		[CacheAspect]
+		[TransactionScopeAspect]//scope
 		[PerformanceAspect(5)]
 		public IDataResult<List<CardHistory>> GetAll()
 		{
-			//Thread.Sleep(5000);
-			int a = 0;
-			for (int i = 0; i < 100; i++)
-			{
-				a++;
-			}
 			return new SuccessDataResult<List<CardHistory>>(_cardHistoryDal.GetAll(), Messages.CardHistoriesListed);
 		}
 		[SecuredOperation("admin")]
@@ -89,6 +85,7 @@ namespace Business.Concrete
 		}
 		[CacheAspect]
 		[SecuredOperation("admin")]
+		[CacheAspect(duration: 10)]
 		public IDataResult<int> GetMonthlyMoney(int secondBegin, int secondFinal, bool isIncome)
 		{
 			var processesBetweenInterval = _cardHistoryDal.GetCardHistoryDetails().FindAll(p =>

@@ -2,6 +2,8 @@
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Logging;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -21,6 +23,8 @@ namespace Business.Concrete
 		}
 		[SecuredOperation("admin")]
 		[CacheRemoveAspect("IFlatService.Get")]
+		[LogAspect(typeof(FileLogger))]
+		[LogAspect(typeof(DatabaseLogger))]
 		public IResult Add(Flat flat)
 		{
 			_flatDal.Add(flat);
