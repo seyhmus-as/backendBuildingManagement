@@ -43,7 +43,7 @@ namespace Business.Concrete
 			_cardHistoryDal.Update(cardHistory);
 			return new SuccessResult(Messages.CardHistoryUpdate);
 		}
-		[SecuredOperation("admin")]
+		//[SecuredOperation("admin")]
 		[CacheAspect]
 		[TransactionScopeAspect]//scope
 		[PerformanceAspect(5)]
