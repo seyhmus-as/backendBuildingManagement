@@ -44,7 +44,7 @@ namespace Business.Concrete
 			return new SuccessResult(Messages.FlatUpdated);
 		}
 		[CacheAspect]
-		[SecuredOperation("admin")]
+		//[SecuredOperation("admin")]
 		public IDataResult<List<Flat>> GetAll()
 		{
 			return new SuccessDataResult<List<Flat>>(_flatDal.GetAll(), Messages.FlatsListed);

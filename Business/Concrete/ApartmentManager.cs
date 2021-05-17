@@ -1,7 +1,9 @@
 ﻿using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -21,6 +23,7 @@ namespace Business.Concrete
 		{
 			_apartmentDal = apartmentDal;
 		}
+		[ValidationAspect(typeof(ApartmentValidator))]
 		[SecuredOperation("admin")]
 		[CacheRemoveAspect("IApartmentService.Get")]
 		public IResult Add(Apartment apartment)
@@ -41,7 +44,7 @@ namespace Business.Concrete
 			_apartmentDal.Update(apartment);
 			return new SuccessResult(Messages.ApartmentUpdate);
 		}
-		[SecuredOperation("admin")]
+		//[SecuredOperation("admin")]
 		[CacheAspect]
 		public IDataResult<List<Apartment>> GetAll()
 		{
