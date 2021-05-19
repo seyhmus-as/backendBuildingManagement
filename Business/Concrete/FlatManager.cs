@@ -31,6 +31,7 @@ namespace Business.Concrete
 			return new SuccessResult(Messages.FlatAdded);
 		}
 		[SecuredOperation("admin")]
+		[CacheRemoveAspect("IFlatService.Get")]
 		public IResult Delete(int flatId)
 		{
 			_flatDal.Delete(_flatDal.Get(p => p.FlatId == flatId));

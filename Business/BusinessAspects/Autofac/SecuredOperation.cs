@@ -33,7 +33,6 @@ namespace Business.BusinessAspects.Autofac
                     return;
                 }
             }
-            return;
             throw new Exception(Messages.AuthorizationDenied);
         }
     }

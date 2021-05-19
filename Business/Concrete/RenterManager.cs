@@ -29,6 +29,7 @@ namespace Business.Concrete
 			return new SuccessResult(Messages.RenterAdded);
 		}
 		[SecuredOperation("admin")]
+		[CacheRemoveAspect("IRenterService.Get")]
 		public IResult Delete(int renterId)
 		{
 			_renterDal.Delete(_renterDal.Get(p => p.RenterId == renterId));

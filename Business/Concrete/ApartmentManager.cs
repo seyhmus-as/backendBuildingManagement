@@ -24,14 +24,15 @@ namespace Business.Concrete
 			_apartmentDal = apartmentDal;
 		}
 		[ValidationAspect(typeof(ApartmentValidator))]
-		[SecuredOperation("admin")]
+		//[SecuredOperation("admin")]
 		[CacheRemoveAspect("IApartmentService.Get")]
 		public IResult Add(Apartment apartment)
 		{
 			_apartmentDal.Add(apartment);
 			return new SuccessResult(Messages.ApartmentAdded);
 		}
-		[SecuredOperation("admin")]
+		//[SecuredOperation("admin")]
+		[CacheRemoveAspect("IApartmentService.Get")]
 		public IResult Delete(int cardId)
 		{
 			_apartmentDal.Delete(_apartmentDal.Get(p => p.ApartmentId == cardId));

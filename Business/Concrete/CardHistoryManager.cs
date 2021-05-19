@@ -31,6 +31,7 @@ namespace Business.Concrete
 			return new SuccessResult(Messages.CardHistoryAdded);
 		}
 		[SecuredOperation("admin")]
+		[CacheRemoveAspect("ICardHistoryService.Get")]
 		public IResult Delete(int id)
 		{
 			_cardHistoryDal.Delete(_cardHistoryDal.Get(p => p.Id == id));

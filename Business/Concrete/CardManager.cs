@@ -27,6 +27,7 @@ namespace Business.Concrete
 			return new SuccessResult(Messages.CardAdded);
 		}
 		[SecuredOperation("admin")]
+		[CacheRemoveAspect("ICardService.Get")]
 		public IResult Delete(int id)
 		{
 			_cardDal.Delete(_cardDal.Get(p => p.CardId == id));
