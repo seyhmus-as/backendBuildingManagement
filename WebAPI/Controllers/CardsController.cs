@@ -39,7 +39,7 @@ namespace WebAPI.Controllers
 			}
 			return BadRequest(result);
 		}
-		[HttpGet("delete")]
+		[HttpPost("delete")]
 		public IActionResult Delete(int id)
 		{
 			var result = _cardService.Delete(id);
@@ -60,9 +60,9 @@ namespace WebAPI.Controllers
 			return BadRequest(result);
 		}
 		[HttpGet("getbyid")]
-		public IActionResult GetById(int cardId)
+		public IActionResult GetById(int id)
 		{
-			var result = _cardService.GetById(cardId);
+			var result = _cardService.GetById(id);
 			if (result.Success)
 			{
 				return Ok(result);

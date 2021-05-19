@@ -39,7 +39,7 @@ namespace WebAPI.Controllers
 			}
 			return BadRequest(result);
 		}
-		[HttpGet("delete")]
+		[HttpPost("delete")]
 		public IActionResult Delete(int id)
 		{
 			var result = _customerService.Delete(id);

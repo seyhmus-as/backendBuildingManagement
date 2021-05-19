@@ -60,7 +60,7 @@ namespace WebAPI.Controllers
 			}
 			return BadRequest(result);
 		}
-		[HttpGet("delete")]
+		[HttpDelete("delete")]
 		public IActionResult Delete(int id)
 		{
 			var result = _flatService.Delete(id);

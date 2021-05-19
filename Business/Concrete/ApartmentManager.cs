@@ -51,7 +51,7 @@ namespace Business.Concrete
 		{
 			return new SuccessDataResult<List<Apartment>>(_apartmentDal.GetAll(), Messages.ApartmentsListed);
 		}
-		[SecuredOperation("admin")]
+		//[SecuredOperation("admin")]
 		public IDataResult<Apartment> GetById(int apartmentId)
 		{
 			return new SuccessDataResult<Apartment>(_apartmentDal.Get(p => p.ApartmentId == apartmentId),Messages.ApartmentViewedById);
