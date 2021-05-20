@@ -19,6 +19,7 @@ namespace Business.Concrete
 		{
 			_cardDal = cardDal;
 		}
+
 		[SecuredOperation("admin")]
 		[CacheRemoveAspect("ICardService.Get")]
 		public IResult Add(Card card)
@@ -26,6 +27,7 @@ namespace Business.Concrete
 			_cardDal.Add(card);
 			return new SuccessResult(Messages.CardAdded);
 		}
+
 		[SecuredOperation("admin")]
 		[CacheRemoveAspect("ICardService.Get")]
 		public IResult Delete(int id)
@@ -33,6 +35,7 @@ namespace Business.Concrete
 			_cardDal.Delete(_cardDal.Get(p => p.CardId == id));
 			return new SuccessResult(Messages.CardDeleted);
 		}
+
 		[SecuredOperation("admin")]
 		[CacheRemoveAspect("ICardService.Get")]
 		public IResult Update(Card card)
@@ -40,12 +43,14 @@ namespace Business.Concrete
 			_cardDal.Update(card);
 			return new SuccessResult(Messages.CardUpdated);
 		}
+
 		[SecuredOperation("admin")]
 		[CacheAspect]
 		public IDataResult<List<Card>> GetAll()
 		{
 			return new SuccessDataResult<List<Card>>(_cardDal.GetAll(), Messages.CardsListed);
 		}
+
 		[SecuredOperation("admin")]
 		public IDataResult<Card> GetById(int cardId)
 		{

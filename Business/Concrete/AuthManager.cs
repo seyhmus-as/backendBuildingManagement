@@ -1,23 +1,30 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
+using Business.Constants;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.JWT;
+using DataAccess.Abstract;
 using Entities.DTOs;
+using System.Collections.Generic;
 
 namespace Business.Concrete
 {
     public class AuthManager : IAuthService
     {
+        private IOperationClaimDal _operationClaimDal;
         private IUserService _userService;
         private ITokenHelper _tokenHelper;
 
-        public AuthManager(IUserService userService, ITokenHelper tokenHelper)
+        public AuthManager(IUserService userService, ITokenHelper tokenHelper, IOperationClaimDal operationClaimDal)
         {
             _userService = userService;
             _tokenHelper = tokenHelper;
+            _operationClaimDal = operationClaimDal;
         }
 
+        [SecuredOperation("admin")]
         public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
         {
             byte[] passwordHash, passwordSalt;
@@ -66,5 +73,10 @@ namespace Business.Concrete
             var accessToken = _tokenHelper.CreateToken(user, claims);
             return new SuccessDataResult<AccessToken>(accessToken, "Token oluşturuldu");
         }
-    }
+
+        public IDataResult<List<OperationClaim>> GetAllClaims()
+        {
+            return new SuccessDataResult<List<OperationClaim>>(_operationClaimDal.GetAll(), Messages.OperationClaimsListed);
+        }
+	}
 }

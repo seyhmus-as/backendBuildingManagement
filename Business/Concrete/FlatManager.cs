@@ -21,6 +21,7 @@ namespace Business.Concrete
 		{
 			_flatDal = flatdal;
 		}
+
 		[SecuredOperation("admin")]
 		[CacheRemoveAspect("IFlatService.Get")]
 		[LogAspect(typeof(FileLogger))]
@@ -30,6 +31,7 @@ namespace Business.Concrete
 			_flatDal.Add(flat);
 			return new SuccessResult(Messages.FlatAdded);
 		}
+
 		[SecuredOperation("admin")]
 		[CacheRemoveAspect("IFlatService.Get")]
 		public IResult Delete(int flatId)
@@ -37,6 +39,7 @@ namespace Business.Concrete
 			_flatDal.Delete(_flatDal.Get(p => p.FlatId == flatId));
 			return new SuccessResult(Messages.FlatDeleted);
 		}
+
 		[CacheRemoveAspect("IFlatService.Get")]
 		[SecuredOperation("admin")]
 		public IResult Update(Flat flat)
@@ -44,17 +47,20 @@ namespace Business.Concrete
 			_flatDal.Update(flat);
 			return new SuccessResult(Messages.FlatUpdated);
 		}
+
 		[CacheAspect]
-		//[SecuredOperation("admin")]
+		[SecuredOperation("admin")]
 		public IDataResult<List<Flat>> GetAll()
 		{
 			return new SuccessDataResult<List<Flat>>(_flatDal.GetAll(), Messages.FlatsListed);
 		}
+
 		[SecuredOperation("admin")]
 		public IDataResult<Flat> GetById(int flatId)
 		{
 			return new SuccessDataResult<Flat>(_flatDal.Get(p => p.FlatId == flatId), Messages.FlatViewedById);
 		}
+
 		[CacheAspect]
 		[SecuredOperation("admin")]
 		public IDataResult<List<FlatDetailDto>> GetFlatDetails()

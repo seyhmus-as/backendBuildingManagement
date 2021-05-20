@@ -20,6 +20,7 @@ namespace Business.Concrete
 		{
 			_renterDal = renterdal;
 		}
+
 		[SecuredOperation("admin")]
 		[CacheRemoveAspect("IRenterService.Get")]
 		//[ValidationAspect(typeof(RenterValidator))]
@@ -28,6 +29,7 @@ namespace Business.Concrete
 			_renterDal.Add(price);
 			return new SuccessResult(Messages.RenterAdded);
 		}
+
 		[SecuredOperation("admin")]
 		[CacheRemoveAspect("IRenterService.Get")]
 		public IResult Delete(int renterId)
@@ -35,6 +37,7 @@ namespace Business.Concrete
 			_renterDal.Delete(_renterDal.Get(p => p.RenterId == renterId));
 			return new SuccessResult(Messages.RenterDeleted);
 		}
+
 		[CacheRemoveAspect("IRenterService.Get")]
 		[SecuredOperation("admin")]
 		public IResult Update(Renter renter)
@@ -42,12 +45,14 @@ namespace Business.Concrete
 			_renterDal.Update(renter);
 			return new SuccessResult(Messages.RenterUpdated);
 		}
+
 		[CacheAspect]
-		[SecuredOperation("admin")]
+		[SecuredOperation("personnel")]
 		public IDataResult<List<Renter>> GetAll()
 		{
 			return new SuccessDataResult<List<Renter>>(_renterDal.GetAll(), Messages.RentersListed);
 		}
+
 		[SecuredOperation("admin")]
 		public IDataResult<Renter> GetById(int renterId)
 		{

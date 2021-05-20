@@ -24,14 +24,14 @@ namespace Business.Concrete
 			_apartmentDal = apartmentDal;
 		}
 		[ValidationAspect(typeof(ApartmentValidator))]
-		//[SecuredOperation("admin")]
+		[SecuredOperation("admin")]
 		[CacheRemoveAspect("IApartmentService.Get")]
 		public IResult Add(Apartment apartment)
 		{
 			_apartmentDal.Add(apartment);
 			return new SuccessResult(Messages.ApartmentAdded);
 		}
-		//[SecuredOperation("admin")]
+		[SecuredOperation("admin")]
 		[CacheRemoveAspect("IApartmentService.Get")]
 		public IResult Delete(int cardId)
 		{
@@ -45,13 +45,13 @@ namespace Business.Concrete
 			_apartmentDal.Update(apartment);
 			return new SuccessResult(Messages.ApartmentUpdate);
 		}
-		//[SecuredOperation("admin")]
+		[SecuredOperation("admin")]
 		[CacheAspect]
 		public IDataResult<List<Apartment>> GetAll()
 		{
 			return new SuccessDataResult<List<Apartment>>(_apartmentDal.GetAll(), Messages.ApartmentsListed);
 		}
-		//[SecuredOperation("admin")]
+		[SecuredOperation("admin")]
 		public IDataResult<Apartment> GetById(int apartmentId)
 		{
 			return new SuccessDataResult<Apartment>(_apartmentDal.Get(p => p.ApartmentId == apartmentId),Messages.ApartmentViewedById);

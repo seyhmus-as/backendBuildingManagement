@@ -54,5 +54,17 @@ namespace WebAPI.Controllers
 
             return BadRequest(result.Message);
         }
+
+
+        [HttpGet("getclaims")]
+        public ActionResult GetClaims()
+        {
+            var result = _authService.GetAllClaims();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }
