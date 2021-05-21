@@ -78,5 +78,5 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<OperationClaim>>(_operationClaimDal.GetAll(), Messages.OperationClaimsListed);
         }
-	}
+    }
 }
