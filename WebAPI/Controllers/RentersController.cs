@@ -69,8 +69,6 @@ namespace WebAPI.Controllers
 			}
 			return BadRequest(result);
 		}
-
-
 		[HttpGet("details")]
 		public IActionResult Details()
 		{

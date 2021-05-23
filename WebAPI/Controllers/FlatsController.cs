@@ -76,7 +76,7 @@ namespace WebAPI.Controllers
 			return BadRequest(result);
 		}
 
-		[HttpGet("details")]
+		[HttpGet("getdetails")]
 		public IActionResult Details()
 		{
 			var result = _flatService.GetFlatDetails();
