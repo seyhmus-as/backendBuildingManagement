@@ -18,6 +18,7 @@ namespace WebAPI.Controllers
 		{
 			_flatService = flatService; 
 		}
+
 		[HttpGet("getall")]
 		public IActionResult GetAll()
 		{
@@ -29,6 +30,7 @@ namespace WebAPI.Controllers
 			return BadRequest(result);
 
 		}
+
 		[HttpGet("getbyid")]
 		public IActionResult GetById(int id)
 		{
@@ -40,6 +42,7 @@ namespace WebAPI.Controllers
 
 			return BadRequest(result);
 		}
+
 		[HttpPost("add")]
 		public IActionResult Add(Flat flat)
 		{
@@ -50,6 +53,7 @@ namespace WebAPI.Controllers
 			}
 			return BadRequest(result);
 		}
+
 		[HttpPost("update")]
 		public IActionResult Update(Flat flat)
 		{
@@ -60,7 +64,8 @@ namespace WebAPI.Controllers
 			}
 			return BadRequest(result);
 		}
-		[HttpDelete("delete")]
+
+		[HttpPost("delete")]
 		public IActionResult Delete(int id)
 		{
 			var result = _flatService.Delete(id);
@@ -70,5 +75,17 @@ namespace WebAPI.Controllers
 			}
 			return BadRequest(result);
 		}
+
+		[HttpGet("details")]
+		public IActionResult Details()
+		{
+			var result = _flatService.GetFlatDetails();
+			if (result.Success)
+			{
+				return Ok(result);
+			}
+			return BadRequest(result);
+		}
+
 	}
 }

@@ -20,6 +20,7 @@ namespace WebAPI.Controllers
 		{
 			_cardHistoryService = parkHistoryService;
 		}
+
 		[HttpPost("add")]
 		public IActionResult Add(CardHistory cardHistory)
 		{
@@ -30,6 +31,7 @@ namespace WebAPI.Controllers
 			}
 			return BadRequest(result);
 		}
+
 		[HttpPost("update")]
 		public IActionResult Update(CardHistory cardHistory)
 		{
@@ -40,6 +42,7 @@ namespace WebAPI.Controllers
 			}
 			return BadRequest(result);
 		}
+
 		[HttpPost("delete")]
 		public IActionResult Delete(int id)
 		{
@@ -50,6 +53,7 @@ namespace WebAPI.Controllers
 			}
 			return BadRequest(result);
 		}
+
 		[HttpGet("getall")]
 		public IActionResult GetAll()
 		{
@@ -61,6 +65,7 @@ namespace WebAPI.Controllers
 			}
 			return BadRequest(result);
 		}
+
 		[HttpGet("getbyid")]
 		public IActionResult GetById(int cardId)
 		{
@@ -71,6 +76,7 @@ namespace WebAPI.Controllers
 			}
 			return BadRequest(result);
 		}
+
 		[HttpGet("getmonthmoneybyid")]
 		public IActionResult GetMonthIncomeById(int flatId, int secondBegin, int secondFinal, bool isIncome)
 		{
@@ -81,6 +87,7 @@ namespace WebAPI.Controllers
 			}
 			return BadRequest(result);
 		}
+
 		[HttpGet("getmonthmoneybyidtotal")]
 		public IActionResult GetMonthIncomeByIdtotal(int flatId, int secondBegin, int secondFinal, bool isIncome)
 		{
@@ -91,10 +98,22 @@ namespace WebAPI.Controllers
 			}
 			return BadRequest(result);
 		}
+
 		[HttpGet("getmonthmoney")]
 		public IActionResult GetMonthIncome(int secondBegin, int secondFinal, bool isIncome)
 		{
 			var result = _cardHistoryService.GetMonthlyMoney(secondBegin, secondFinal,isIncome);
+			if (result.Success)
+			{
+				return Ok(result);
+			}
+			return BadRequest(result);
+		}
+
+		[HttpGet("details")]
+		public IActionResult Details()
+		{
+			var result = _cardHistoryService.GetCardHistoryDetails();
 			if (result.Success)
 			{
 				return Ok(result);

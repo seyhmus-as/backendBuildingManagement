@@ -39,6 +39,12 @@ namespace Business.Constants
 		public static string RenterNameMustStartA = "RenterNameMustStartA";
 		public static string RenterNameNotNull = "RenterNameNotNull";
 		public static string AuthorizationDenied = "AuthorizationDenied";
-		internal static string OperationClaimsListed;
+		public static string UsersListed = "UsersListed";
+		public static string OperationClaimsListed = "OperationClaimsListed";
+		public static string UserDeleted = "UserDeleted";
+		public static string UserOperationClaimDeleted = "UserOperationClaimDeleted";
+		public static string UserOperationClaimUpdated = "UserOperationClaimUpdated";
+		public static string UserOperationClaimsListed = "UserOperationClaimsListed";
+		public static string UserOperationClaimAdded = "UserOperationClaimAdded";
 	}
 }

@@ -69,5 +69,17 @@ namespace WebAPI.Controllers
 			}
 			return BadRequest(result);
 		}
+
+
+		[HttpGet("details")]
+		public IActionResult Details()
+		{
+			var result = _renterService.GetRenterDetails();
+			if (result.Success)
+			{
+				return Ok(result);
+			}
+			return BadRequest(result);
+		}
 	}
 }

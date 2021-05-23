@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,5 +14,6 @@ namespace Business.Abstract
 		IResult Update(Renter renter);
 		IDataResult<List<Renter>> GetAll();
 		IDataResult<Renter> GetById(int renterId);
+		IDataResult<List<RenterDetailDto>> GetRenterDetails();
 	}
 }

@@ -37,11 +37,15 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();
 
+            builder.RegisterType<UserOperationClaimManager>().As<IUserOperationClaimService>();
+            builder.RegisterType<EfUserOperationClaimDal>().As<IUserOperationClaimDal>();
+
+            //operation claim doesnt have manager
+            builder.RegisterType<EfOperationClaimDal>().As<IOperationClaimDal>();
+
             builder.RegisterType<AuthManager>().As<IAuthService>();
 
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
-
-            builder.RegisterType<EfOperationClaimDal>().As<IOperationClaimDal>();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
