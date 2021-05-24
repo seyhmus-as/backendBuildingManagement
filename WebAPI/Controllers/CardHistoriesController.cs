@@ -77,7 +77,7 @@ namespace WebAPI.Controllers
 			return BadRequest(result);
 		}
 
-		[HttpGet("getmonthmoneybyid")]
+		[HttpGet("getmonthlymoneybyid")]
 		public IActionResult GetMonthIncomeById(int flatId, int secondBegin, int secondFinal, bool isIncome)
 		{
 			var result = _cardHistoryService.GetMonthlyMoneyById(flatId, secondBegin, secondFinal, isIncome);
@@ -88,7 +88,7 @@ namespace WebAPI.Controllers
 			return BadRequest(result);
 		}
 
-		[HttpGet("getmonthmoneybyidtotal")]
+		[HttpGet("getmonthlytotalmoneybyid")]
 		public IActionResult GetMonthIncomeByIdtotal(int flatId, int secondBegin, int secondFinal, bool isIncome)
 		{
 			var result = _cardHistoryService.GetMonthlyMoneyTotalById(flatId, secondBegin, secondFinal, isIncome);
@@ -99,7 +99,7 @@ namespace WebAPI.Controllers
 			return BadRequest(result);
 		}
 
-		[HttpGet("getmonthmoney")]
+		[HttpGet("getmonthlymoney")]
 		public IActionResult GetMonthIncome(int secondBegin, int secondFinal, bool isIncome)
 		{
 			var result = _cardHistoryService.GetMonthlyMoney(secondBegin, secondFinal,isIncome);

@@ -17,7 +17,7 @@ namespace Business.Concrete
 		IUserDal _userDal;
 		IUserOperationClaimDal _userOperationDal;
 
-		public UserManager(IUserDal userDal,IUserOperationClaimDal userOperationClaimDal)
+		public UserManager(IUserDal userDal, IUserOperationClaimDal userOperationClaimDal)
 		{
 			_userDal = userDal;
 			_userOperationDal = userOperationClaimDal;
@@ -28,11 +28,12 @@ namespace Business.Concrete
 			return _userDal.GetClaims(user);
 		}
 
+		[SecuredOperation("admin")]
 		public void Add(User user)
 		{
 			_userDal.Add(user);
 		}
-
+		
 		public User GetByMail(string email)
 		{
 			return _userDal.Get(u => u.Email == email);

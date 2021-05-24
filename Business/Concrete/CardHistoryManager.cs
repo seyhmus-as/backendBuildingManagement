@@ -62,10 +62,10 @@ namespace Business.Concrete
 		{
 			var processesBetweenInterval = _cardHistoryDal.GetCardHistoryDetails();
 
-			processesBetweenInterval.FindAll(p =>
-					   (p.Date.Value.Second > secondBegin && p.Date.Value.Second < secondFinal) &&
-					   (p.FlatId == flatId) &&
-					   (p.IsIncome = isIncome)
+			processesBetweenInterval = processesBetweenInterval.FindAll(p =>
+						 (p.Date.Value.Second >= secondBegin && p.Date.Value.Second <= secondFinal) &&
+						 (p.FlatId == flatId) &&
+						 (p.IsIncome == isIncome)
 				   );
 			return new SuccessDataResult<List<CardHistoryDetailDto>>(processesBetweenInterval, Messages.CardHistoryMonthlyMoneyListed);
 		}
@@ -73,9 +73,9 @@ namespace Business.Concrete
 		public IDataResult<int> GetMonthlyMoneyTotalById(int flatId, int secondBegin, int secondFinal, bool isIncome)
 		{
 			var processesBetweenInterval = _cardHistoryDal.GetCardHistoryDetails().FindAll(p =>
-					   (p.Date.Value.Second > secondBegin && p.Date.Value.Second < secondFinal) &&
+					   (p.Date.Value.Second >= secondBegin && p.Date.Value.Second <= secondFinal) &&
 					   (p.FlatId == flatId) &&
-					   (p.IsIncome = isIncome)
+					   (p.IsIncome == isIncome)
 				   );
 			int total = 0;
 			for (int i = 0; i < processesBetweenInterval.Count; i++)
