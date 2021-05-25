@@ -48,7 +48,7 @@ namespace Business.Concrete
 		}
 
 		[CacheAspect]
-		[SecuredOperation("personnel")]
+		[SecuredOperation("admin")]
 		public IDataResult<List<Renter>> GetAll()
 		{
 			return new SuccessDataResult<List<Renter>>(_renterDal.GetAll(), Messages.RentersListed);

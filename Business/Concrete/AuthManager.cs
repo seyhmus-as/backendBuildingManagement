@@ -47,22 +47,22 @@ namespace Business.Concrete
             var userToCheck = _userService.GetByMail(userForLoginDto.Email);
             if (userToCheck == null)
             {
-                return new ErrorDataResult<User>("Kullanıcı bulunamadı");
+                return new ErrorDataResult<User>(Messages.UserNotFound);
             }
 
             if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
             {
-                return new ErrorDataResult<User>("Parola hatası");
+                return new ErrorDataResult<User>(Messages.WrongPassword);
             }
 
-            return new SuccessDataResult<User>(userToCheck, "Başarılı giriş");
+            return new SuccessDataResult<User>(userToCheck, Messages.SuccessLogin);
         }
 
         public IResult UserExists(string email)
         {
             if (_userService.GetByMail(email) != null)
             {
-                return new ErrorResult("Kullanıcı mevcut");
+                return new ErrorResult(Messages.EmailUsed);
             }
             return new SuccessResult();
         }
@@ -71,7 +71,7 @@ namespace Business.Concrete
         {
             var claims = _userService.GetClaims(user);
             var accessToken = _tokenHelper.CreateToken(user, claims);
-            return new SuccessDataResult<AccessToken>(accessToken, "Token oluşturuldu");
+            return new SuccessDataResult<AccessToken>(accessToken);
         }
 
         public IDataResult<List<OperationClaim>> GetAllClaims()
