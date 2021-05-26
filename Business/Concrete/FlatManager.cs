@@ -1,8 +1,10 @@
 ﻿using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Logging;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -22,7 +24,8 @@ namespace Business.Concrete
 			_flatDal = flatdal;
 		}
 
-		[SecuredOperation("admin")]
+		[ValidationAspect(typeof(FlatValidator))]
+		[SecuredOperation("admin,personnel")]
 		[CacheRemoveAspect("IFlatService.Get")]
 		[LogAspect(typeof(FileLogger))]
 		[LogAspect(typeof(DatabaseLogger))]
@@ -32,37 +35,38 @@ namespace Business.Concrete
 			return new SuccessResult(Messages.FlatAdded);
 		}
 
-		[SecuredOperation("admin")]
+		[SecuredOperation("admin,personnel")]
 		[CacheRemoveAspect("IFlatService.Get")]
-		public IResult Delete(int flatId)
+		public IResult Delete(int id)
 		{
-			_flatDal.Delete(_flatDal.Get(p => p.FlatId == flatId));
+			_flatDal.Delete(_flatDal.Get(p => p.id == id));
 			return new SuccessResult(Messages.FlatDeleted);
 		}
 
 		[CacheRemoveAspect("IFlatService.Get")]
-		[SecuredOperation("admin")]
+		[ValidationAspect(typeof(FlatValidator))]
+		[SecuredOperation("admin,personnel")]
 		public IResult Update(Flat flat)
 		{
 			_flatDal.Update(flat);
 			return new SuccessResult(Messages.FlatUpdated);
 		}
 
-		[CacheAspect]
-		[SecuredOperation("admin")]
+		[CacheAspect(duration: 10)]
+		[SecuredOperation("admin,personnel")]
 		public IDataResult<List<Flat>> GetAll()
 		{
 			return new SuccessDataResult<List<Flat>>(_flatDal.GetAll(), Messages.FlatsListed);
 		}
 
-		[SecuredOperation("admin")]
-		public IDataResult<Flat> GetById(int flatId)
+		[SecuredOperation("admin,personnel")]
+		public IDataResult<List<Flat>> GetById(int flatId)
 		{
-			return new SuccessDataResult<Flat>(_flatDal.Get(p => p.FlatId == flatId), Messages.FlatViewedById);
+			return new SuccessDataResult<List<Flat>> (_flatDal.GetAll(p => p.FlatId == flatId), Messages.FlatViewedById);
 		}
 
 		[CacheAspect]
-		[SecuredOperation("admin")]
+		[SecuredOperation("admin,personnel")]
 		public IDataResult<List<FlatDetailDto>> GetFlatDetails()
 		{
 			return new SuccessDataResult<List<FlatDetailDto>>(_flatDal.GetFlatDetails());

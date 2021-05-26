@@ -1,9 +1,13 @@
 ﻿using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Logging;
 using Core.Aspects.Autofac.Performance;
 using Core.Aspects.Autofac.Transaction;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -23,6 +27,10 @@ namespace Business.Concrete
 		{
 			_cardHistoryDal = parkHistorydal;
 		}
+
+		[ValidationAspect(typeof(CardHistoryValidator))]
+		[LogAspect(typeof(FileLogger))]
+		[LogAspect(typeof(DatabaseLogger))]
 		[SecuredOperation("admin")]
 		[CacheRemoveAspect("ICardHistoryService.Get")]
 		public IResult Add(CardHistory cardHistorydal)
@@ -30,6 +38,7 @@ namespace Business.Concrete
 			_cardHistoryDal.Add(cardHistorydal);
 			return new SuccessResult(Messages.CardHistoryAdded);
 		}
+
 		[SecuredOperation("admin")]
 		[CacheRemoveAspect("ICardHistoryService.Get")]
 		public IResult Delete(int id)
@@ -37,27 +46,32 @@ namespace Business.Concrete
 			_cardHistoryDal.Delete(_cardHistoryDal.Get(p => p.Id == id));
 			return new SuccessResult(Messages.CardHistoryDeleted);
 		}
+
 		[SecuredOperation("admin")]
 		[CacheRemoveAspect("ICardHistoryService.Get")]
+		[ValidationAspect(typeof(CardHistoryValidator))]
 		public IResult Update(CardHistory cardHistory)
 		{
 			_cardHistoryDal.Update(cardHistory);
 			return new SuccessResult(Messages.CardHistoryUpdate);
 		}
-		[SecuredOperation("admin")]
-		[CacheAspect]
+
+		[SecuredOperation("admin,personnel")]
+		[CacheAspect(duration: 10)]
 		[TransactionScopeAspect]
 		[PerformanceAspect(5)]
 		public IDataResult<List<CardHistory>> GetAll()
 		{
 			return new SuccessDataResult<List<CardHistory>>(_cardHistoryDal.GetAll(), Messages.CardHistoriesListed);
 		}
-		[SecuredOperation("admin")]
+
+		[SecuredOperation("admin,personnel")]
 		public IDataResult<List<CardHistory>> GetById(int cardId)
 		{
 			return new SuccessDataResult<List<CardHistory>>(_cardHistoryDal.GetAll(p => p.CardId == cardId), Messages.CardHistoryViewedById);
 		}
-		[SecuredOperation("admin")]
+
+		[SecuredOperation("admin,personnel")]
 		public IDataResult<List<CardHistoryDetailDto>> GetMonthlyMoneyById(int flatId, int secondBegin, int secondFinal, bool isIncome)
 		{
 			var processesBetweenInterval = _cardHistoryDal.GetCardHistoryDetails();
@@ -69,7 +83,8 @@ namespace Business.Concrete
 				   );
 			return new SuccessDataResult<List<CardHistoryDetailDto>>(processesBetweenInterval, Messages.CardHistoryMonthlyMoneyListed);
 		}
-		[SecuredOperation("admin")]
+
+		[SecuredOperation("admin,personnel")]
 		public IDataResult<int> GetMonthlyMoneyTotalById(int flatId, int secondBegin, int secondFinal, bool isIncome)
 		{
 			var processesBetweenInterval = _cardHistoryDal.GetCardHistoryDetails().FindAll(p =>
@@ -84,9 +99,8 @@ namespace Business.Concrete
 			}
 			return new SuccessDataResult<int>(total, Messages.CardHistoryMonthlyMoneyTotalViewedById);
 		}
-		[CacheAspect]
+
 		[SecuredOperation("admin")]
-		[CacheAspect(duration: 10)]
 		public IDataResult<int> GetMonthlyMoney(int secondBegin, int secondFinal, bool isIncome)
 		{
 			var processesBetweenInterval = _cardHistoryDal.GetCardHistoryDetails().FindAll(p =>
@@ -100,7 +114,8 @@ namespace Business.Concrete
 			}
 			return new SuccessDataResult<int>(total, Messages.CardHistoryMonthlyMoneyTotalViewed);
 		}
-		[SecuredOperation("admin")]
+
+		[SecuredOperation("admin,personnel")]
 		public IDataResult<List<CardHistoryDetailDto>> GetCardHistoryDetails()
 		{
 			return new SuccessDataResult<List<CardHistoryDetailDto>>(_cardHistoryDal.GetCardHistoryDetails());

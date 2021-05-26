@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Core.Aspects.Autofac.Logging;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
@@ -24,6 +26,8 @@ namespace Business.Concrete
             _operationClaimDal = operationClaimDal;
         }
 
+        [LogAspect(typeof(FileLogger))]
+        [LogAspect(typeof(DatabaseLogger))]
         [SecuredOperation("admin")]
         public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
         {
@@ -74,6 +78,7 @@ namespace Business.Concrete
             return new SuccessDataResult<AccessToken>(accessToken);
         }
 
+        [SecuredOperation("admin")]
         public IDataResult<List<OperationClaim>> GetAllClaims()
         {
             return new SuccessDataResult<List<OperationClaim>>(_operationClaimDal.GetAll(), Messages.OperationClaimsListed);

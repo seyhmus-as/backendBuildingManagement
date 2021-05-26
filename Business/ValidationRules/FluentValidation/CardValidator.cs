@@ -7,12 +7,12 @@ using System.Text;
 
 namespace Business.ValidationRules.FluentValidation
 {
-    public class RenterValidator : AbstractValidator<Renter>
+    public class CardValidator : AbstractValidator<Card>
     {
-        public RenterValidator()
+        public CardValidator()
         {
-            RuleFor(p => p.FirstName).MinimumLength(2);
-            RuleFor(p => p.LastName).MinimumLength(2);
+            RuleFor(p => p.Name).MinimumLength(2);
+            RuleFor(p => p.IsIncome).NotEmpty();
         }
     }
 }

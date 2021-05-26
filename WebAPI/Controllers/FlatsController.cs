@@ -32,9 +32,9 @@ namespace WebAPI.Controllers
 		}
 
 		[HttpGet("getbyid")]
-		public IActionResult GetById(int id)
+		public IActionResult GetById(int flatId)
 		{
-			var result = _flatService.GetById(id);
+			var result = _flatService.GetById(flatId);
 			if (result.Success)
 			{
 				return Ok(result);

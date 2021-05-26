@@ -11,14 +11,10 @@ namespace Business.ValidationRules.FluentValidation
         public ApartmentValidator()
         {
             RuleFor(p => p.ApartmentName).NotEmpty();
-            RuleFor(p => p.NumberOfFlat).GreaterThan(12);
-            RuleFor(p => p.ApartmentName).Must(StartWithA).WithMessage("Ürünler A harfi ile başlamalı");
-
-        }
-
-        private bool StartWithA(string arg)
-        {
-            return arg.StartsWith("A");
+            RuleFor(p => p.NumberOfFloor).GreaterThanOrEqualTo(7);
+            RuleFor(p => p.NumberOfFlat).NotEmpty();
+            RuleFor(p => p.ApartmentName).MinimumLength(2);
+            RuleFor(p => p).Must(p => p.NumberOfFlat > p.NumberOfFloor).WithMessage("Number of flat must be greater than number of floor");
         }
     }
 }

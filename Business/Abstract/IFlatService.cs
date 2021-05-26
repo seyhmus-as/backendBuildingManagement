@@ -11,9 +11,9 @@ namespace Business.Abstract
     {
         IResult Add(Flat flat);
         IResult Update(Flat flat);
-        IResult Delete(int flatId);
+        IResult Delete(int id);
         IDataResult<List<Flat>> GetAll();
-        IDataResult<Flat> GetById(int flatId);
+        IDataResult<List<Flat>> GetById(int flatId);
         IDataResult<List<FlatDetailDto>> GetFlatDetails();
         
     }

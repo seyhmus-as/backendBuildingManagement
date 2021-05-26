@@ -24,7 +24,7 @@ namespace Business.Concrete
 
 		[SecuredOperation("admin")]
 		[CacheRemoveAspect("IRenterService.Get")]
-		//[ValidationAspect(typeof(RenterValidator))]
+		[ValidationAspect(typeof(RenterValidator))]
 		public IResult Add(Renter price)
 		{
 			_renterDal.Add(price);
@@ -39,6 +39,7 @@ namespace Business.Concrete
 			return new SuccessResult(Messages.RenterDeleted);
 		}
 
+		[ValidationAspect(typeof(RenterValidator))]
 		[CacheRemoveAspect("IRenterService.Get")]
 		[SecuredOperation("admin")]
 		public IResult Update(Renter renter)

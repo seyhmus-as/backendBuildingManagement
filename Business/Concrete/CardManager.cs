@@ -1,7 +1,11 @@
 ﻿using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Logging;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Logging.Log4Net.Loggers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -20,7 +24,10 @@ namespace Business.Concrete
 			_cardDal = cardDal;
 		}
 
-		[SecuredOperation("admin")]
+		[ValidationAspect(typeof(CardValidator))]
+		[LogAspect(typeof(FileLogger))]
+		[LogAspect(typeof(DatabaseLogger))]
+		[SecuredOperation("admin,personnel")]
 		[CacheRemoveAspect("ICardService.Get")]
 		public IResult Add(Card card)
 		{
@@ -28,7 +35,7 @@ namespace Business.Concrete
 			return new SuccessResult(Messages.CardAdded);
 		}
 
-		[SecuredOperation("admin")]
+		[SecuredOperation("admin,personnel")]
 		[CacheRemoveAspect("ICardService.Get")]
 		public IResult Delete(int id)
 		{
@@ -36,7 +43,8 @@ namespace Business.Concrete
 			return new SuccessResult(Messages.CardDeleted);
 		}
 
-		[SecuredOperation("admin")]
+		[ValidationAspect(typeof(CardValidator))]
+		[SecuredOperation("admin,personnel")]
 		[CacheRemoveAspect("ICardService.Get")]
 		public IResult Update(Card card)
 		{
@@ -44,14 +52,14 @@ namespace Business.Concrete
 			return new SuccessResult(Messages.CardUpdated);
 		}
 
-		[SecuredOperation("admin")]
-		[CacheAspect]
+		[SecuredOperation("admin,personnel")]
+		[CacheAspect(duration: 10)]
 		public IDataResult<List<Card>> GetAll()
 		{
 			return new SuccessDataResult<List<Card>>(_cardDal.GetAll(), Messages.CardsListed);
 		}
 
-		[SecuredOperation("admin")]
+		[SecuredOperation("admin,personnel")]
 		public IDataResult<Card> GetById(int cardId)
 		{
 			return new SuccessDataResult<Card>(_cardDal.Get(p => p.CardId == cardId), Messages.CardViewed);

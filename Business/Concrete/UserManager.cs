@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
 using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -28,6 +30,7 @@ namespace Business.Concrete
 			return _userDal.GetClaims(user);
 		}
 
+		[ValidationAspect(typeof(UserValidator))]
 		[SecuredOperation("admin")]
 		public void Add(User user)
 		{
