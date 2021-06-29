@@ -19,14 +19,14 @@ namespace DataAccess.Concrete.EntityFramework
             {
                 var result = from p in context.Flats
                              join c in context.Apartments
-                             on p.ApartmentId equals c.ApartmentId
+                             on p.Id equals c.Id
                              join r in context.Renters
-                             on p.RenterId equals r.RenterId
+                             on p.RenterId equals r.Id
                              select new RenterDetailDto
                              {
-                                 ApartmentName = c.ApartmentName,
-                                 ApartmentId = c.ApartmentId,
-                                 FlatId = p.FlatId,
+                                 ApartmentName = c.Name,
+                                 ApartmentId = c.Id,
+                                 FlatId = p.Id,
                                  PriceOfRent = p.PriceOfRent,
                                  RenterId = p.RenterId,
                                  RenterName = r.FirstName + " " + r.LastName

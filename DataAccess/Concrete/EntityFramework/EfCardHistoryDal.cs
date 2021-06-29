@@ -15,7 +15,7 @@ namespace DataAccess.Concrete.EntityFramework
 			{
 				var result = from c in context.Cards
 							 join p in context.CardHistories
-							 on c.CardId equals p.CardId
+							 on c.Id equals p.CardId
 							 select new CardHistoryDetailDto
 							 {
 								 IsIncome = c.IsIncome,
@@ -23,7 +23,7 @@ namespace DataAccess.Concrete.EntityFramework
 								 Id = p.Id,
 								 Name = c.Name,
 								 Date = p.Date,
-								 CardId = c.CardId,
+								 CardId = c.Id,
 								 FlatId = p.FlatId,
 							 };
 				return result.ToList();

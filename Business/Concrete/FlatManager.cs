@@ -39,7 +39,7 @@ namespace Business.Concrete
 		[CacheRemoveAspect("IFlatService.Get")]
 		public IResult Delete(int id)
 		{
-			_flatDal.Delete(_flatDal.Get(p => p.id == id));
+			_flatDal.Delete(_flatDal.Get(p => p.Id == id));
 			return new SuccessResult(Messages.FlatDeleted);
 		}
 
@@ -62,7 +62,7 @@ namespace Business.Concrete
 		[SecuredOperation("admin,personnel")]
 		public IDataResult<List<Flat>> GetById(int flatId)
 		{
-			return new SuccessDataResult<List<Flat>> (_flatDal.GetAll(p => p.FlatId == flatId), Messages.FlatViewedById);
+			return new SuccessDataResult<List<Flat>> (_flatDal.GetAll(p => p.Id == flatId), Messages.FlatViewedById);
 		}
 
 		[CacheAspect]

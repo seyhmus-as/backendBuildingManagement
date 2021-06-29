@@ -39,7 +39,7 @@ namespace Business.Concrete
 		[CacheRemoveAspect("IApartmentService.Get")]
 		public IResult Delete(int cardId)
 		{
-			_apartmentDal.Delete(_apartmentDal.Get(p => p.ApartmentId == cardId));
+			_apartmentDal.Delete(_apartmentDal.Get(p => p.Id == cardId));
 			return new SuccessResult(Messages.ApartmentDeleted);
 		}
 
@@ -64,7 +64,7 @@ namespace Business.Concrete
 		[SecuredOperation("admin,personnel")]
 		public IDataResult<Apartment> GetById(int apartmentId)
 		{
-			return new SuccessDataResult<Apartment>(_apartmentDal.Get(p => p.ApartmentId == apartmentId),Messages.ApartmentViewedById);
+			return new SuccessDataResult<Apartment>(_apartmentDal.Get(p => p.Id == apartmentId),Messages.ApartmentViewedById);
 		}
 	}
 }

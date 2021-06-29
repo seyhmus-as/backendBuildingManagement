@@ -35,7 +35,7 @@ namespace Business.Concrete
 		[CacheRemoveAspect("IRenterService.Get")]
 		public IResult Delete(int renterId)
 		{
-			_renterDal.Delete(_renterDal.Get(p => p.RenterId == renterId));
+			_renterDal.Delete(_renterDal.Get(p => p.Id == renterId));
 			return new SuccessResult(Messages.RenterDeleted);
 		}
 
@@ -58,7 +58,7 @@ namespace Business.Concrete
 		[SecuredOperation("admin")]
 		public IDataResult<Renter> GetById(int renterId)
 		{
-			return new SuccessDataResult<Renter>(_renterDal.Get(p => p.RenterId == renterId), Messages.RenterViewedById);
+			return new SuccessDataResult<Renter>(_renterDal.Get(p => p.Id == renterId), Messages.RenterViewedById);
 		}
 
 		[CacheAspect]

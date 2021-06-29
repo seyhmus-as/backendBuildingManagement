@@ -8,7 +8,8 @@ namespace Entities.DTOs
 {
     public class FlatDetailDto:IDto
 	{
-		public int FlatId { get; set; }
+		public int Id { get; set; }
+		public int FlatNo { get; set; }
 		public int PriceOfRent { get; set; }
 		public int RenterId { get; set; }
 		public string RenterName { get; set; }

@@ -17,19 +17,20 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (BuildingManagementContext context = new BuildingManagementContext())
             {
-                var result = from p in context.Flats
-                             join c in context.Apartments
-                             on p.ApartmentId equals c.ApartmentId
-                             join r in context.Renters
-                             on p.RenterId equals r.RenterId
+                var result = from flat in context.Flats
+                             join apartment in context.Apartments
+                             on flat.ApartmentId equals apartment.Id
+                             join renter in context.Renters
+                             on flat.RenterId equals renter.Id
                              select new FlatDetailDto
                              {
-                                 ApartmentName=c.ApartmentName,
-                                 ApartmentId=c.ApartmentId,
-                                 FlatId=p.FlatId,
-                                 PriceOfRent=p.PriceOfRent,
-                                 RenterId=p.RenterId,
-                                 RenterName=r.FirstName+" "+r.LastName
+                                 Id = flat.Id,
+                                 FlatNo = flat.FlatNo,
+                                 RenterId = renter.Id,
+                                 ApartmentId = apartment.Id,
+                                 ApartmentName = apartment.Name,
+                                 PriceOfRent = flat.PriceOfRent,
+                                 RenterName = renter.FirstName + " " +renter.LastName
                              };
                 return result.ToList();
             }

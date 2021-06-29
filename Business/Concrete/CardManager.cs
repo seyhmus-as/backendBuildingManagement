@@ -39,7 +39,7 @@ namespace Business.Concrete
 		[CacheRemoveAspect("ICardService.Get")]
 		public IResult Delete(int id)
 		{
-			_cardDal.Delete(_cardDal.Get(p => p.CardId == id));
+			_cardDal.Delete(_cardDal.Get(p => p.Id == id));
 			return new SuccessResult(Messages.CardDeleted);
 		}
 
@@ -62,7 +62,7 @@ namespace Business.Concrete
 		[SecuredOperation("admin,personnel")]
 		public IDataResult<Card> GetById(int cardId)
 		{
-			return new SuccessDataResult<Card>(_cardDal.Get(p => p.CardId == cardId), Messages.CardViewed);
+			return new SuccessDataResult<Card>(_cardDal.Get(p => p.Id == cardId), Messages.CardViewed);
 		}
 	}
 }

@@ -9,8 +9,8 @@ namespace Entities.Concrete
 {
 	public class Apartment:IEntity
 	{
-		public int ApartmentId { get; set; }
-		public string ApartmentName { get; set; }
+		public int Id { get; set; }
+		public string Name { get; set; }
 		public int NumberOfFlat { get; set; }
 		public int NumberOfFloor { get; set; }
 	}
